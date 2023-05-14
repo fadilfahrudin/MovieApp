@@ -1,0 +1,34 @@
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+
+.footer-container{
+    margin-top: 100px;
+    width: 100%;
+}
+
+.firstLine{
+
+    width: 100%;
+    height: 150px
+}
+.about{
+    width: 50%;
+    float: left;
+}
+
+.sosmed{
+    position: relative;
+    text-align: left;
+    float: right;
+    width: 40%;
+}
+
+h5, p{
+    text-decoration: none;
+    color: rgb(244, 244, 241);
+    cursor: default;
+}
