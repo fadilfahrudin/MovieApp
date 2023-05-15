@@ -21,7 +21,7 @@ const Tambah = () => {
 
 	const [title, setTitle] = useState("");
 	const [genres, setGenre] = useState([]);
-	const [image, setImage] = useState("");
+	// const [image, setImage] = useState("");
 	const [year, setYear] = useState("");
 	const [description, setDesctiption] = useState("");
 
@@ -30,7 +30,7 @@ const Tambah = () => {
 		const data = {
 			title,
 			genres,
-			image,
+			imgUrl,
 			year,
 			description,
 		};
@@ -45,6 +45,14 @@ const Tambah = () => {
 			});
 		} else {
 			console.log("isi data dulu");
+		}
+	};
+
+	const [imgUrl, setImgUrl] = useState();
+	const onImageChange = (e) => {
+		if (e.target.files && e.target.files[0]) {
+			let img = e.target.files[0];
+			setImgUrl(URL.createObjectURL(img));
 		}
 	};
 
@@ -90,8 +98,8 @@ const Tambah = () => {
 								style={inputStyle}
 								type='file'
 								id='image'
-								value={image}
-								onChange={(e) => setImage(e.target.value)}
+								onChange={onImageChange}
+								accept='image/*'
 							/>
 						</CCol>
 					</CRow>
