@@ -13,7 +13,6 @@ display: flex;
 .wrapper{
   margin: 0 auto;
   overflow: hidden;
-  background-color: aqua;
 }
 
 .slider-image, .wrapper{

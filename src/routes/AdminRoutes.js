@@ -10,7 +10,7 @@ const CmsRouts = () => {
 			<Routes>
 				<Route path='/' element={<Dashboard />} />
 				<Route path='/tambah' element={<Tambah />} />
-				<Route path='/edit' element={<Edit />} />
+				<Route path='/edit/:id' element={<Edit />} />
 			</Routes>
 		</>
 	);

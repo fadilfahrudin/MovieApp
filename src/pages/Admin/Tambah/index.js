@@ -7,9 +7,10 @@ import {
 	CFormTextarea,
 	CRow,
 } from "@coreui/react";
-import React from "react";
+import React, { useState } from "react";
 import "./tambah.css";
 import { useNavigate } from "react-router";
+import Axios from "axios";
 
 const inputStyle = {
 	height: "40px",
@@ -18,9 +19,33 @@ const inputStyle = {
 const Tambah = () => {
 	const navigate = useNavigate();
 
+	const [title, setTitle] = useState("");
+	const [genres, setGenre] = useState([]);
+	const [image, setImage] = useState("");
+	const [year, setYear] = useState("");
+	const [description, setDesctiption] = useState("");
+
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		navigate("/admin");
+		const data = {
+			title,
+			genres,
+			image,
+			year,
+			description,
+		};
+		console.log(data);
+		if (data) {
+			Axios.post("http://localhost:2001/movies", data).then((result) => {
+				try {
+					navigate("/admin");
+				} catch (error) {
+					console.log(error);
+				}
+			});
+		} else {
+			console.log("isi data dulu");
+		}
 	};
 
 	return (
@@ -33,15 +58,13 @@ const Tambah = () => {
 							Title
 						</CFormLabel>
 						<CCol sm={10}>
-							<CFormInput style={inputStyle} type='text' id='title' />
-						</CCol>
-					</CRow>
-					<CRow className='mb-3'>
-						<CFormLabel htmlFor='produceBy' className='col-sm-2 col-form-label'>
-							Produce By
-						</CFormLabel>
-						<CCol sm={10}>
-							<CFormInput style={inputStyle} type='text' id='produceBy' />
+							<CFormInput
+								style={inputStyle}
+								type='text'
+								id='title'
+								value={title}
+								onChange={(e) => setTitle(e.target.value)}
+							/>
 						</CCol>
 					</CRow>
 					<CRow className='mb-3'>
@@ -49,7 +72,27 @@ const Tambah = () => {
 							Genre
 						</CFormLabel>
 						<CCol sm={10}>
-							<CFormInput style={inputStyle} type='text' id='genre' />
+							<CFormInput
+								style={inputStyle}
+								type='text'
+								id='genre'
+								value={genres}
+								onChange={(e) => setGenre(e.target.value)}
+							/>
+						</CCol>
+					</CRow>
+					<CRow className='mb-3'>
+						<CFormLabel htmlFor='image' className='col-sm-2 col-form-label'>
+							Image
+						</CFormLabel>
+						<CCol sm={10}>
+							<CFormInput
+								style={inputStyle}
+								type='file'
+								id='image'
+								value={image}
+								onChange={(e) => setImage(e.target.value)}
+							/>
 						</CCol>
 					</CRow>
 					<CRow className='mb-3'>
@@ -57,15 +100,13 @@ const Tambah = () => {
 							Year
 						</CFormLabel>
 						<CCol sm={10}>
-							<CFormInput style={inputStyle} type='date' id='year' />
-						</CCol>
-					</CRow>
-					<CRow className='mb-3'>
-						<CFormLabel htmlFor='link' className='col-sm-2 col-form-label'>
-							Link
-						</CFormLabel>
-						<CCol sm={10}>
-							<CFormInput style={inputStyle} type='text' id='link' />
+							<CFormInput
+								style={inputStyle}
+								type='number'
+								id='year'
+								value={year}
+								onChange={(e) => setYear(e.target.value)}
+							/>
 						</CCol>
 					</CRow>
 					<CRow className='mb-3'>
@@ -75,7 +116,9 @@ const Tambah = () => {
 						<CCol sm={10}>
 							<CFormTextarea
 								id='floatingTextarea'
-								floatingLabel='Description'></CFormTextarea>
+								floatingLabel='Description'
+								value={description}
+								onChange={(e) => setDesctiption(e.target.value)}></CFormTextarea>
 						</CCol>
 					</CRow>
 					<CButton type='submit'>Simpan</CButton>

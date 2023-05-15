@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./header.css";
 import { DummyLogo, IcSearch, IcUser } from "../../assets/icon";
 import {
@@ -7,6 +7,10 @@ import {
 	CDropdownMenu,
 	CDropdownToggle,
 } from "@coreui/react";
+import { useSelector } from "react-redux";
+import { selectUser } from "../../redux/userSlice";
+import { asyncLocalStorage, getData } from "../../utils/storage";
+import { useNavigate } from "react-router-dom";
 
 const menus = [
 	{ name: "Home", link: "/" },
@@ -20,6 +24,28 @@ const vars = {
 };
 
 function Header() {
+	const user = useSelector(selectUser);
+	const navigate = useNavigate();
+	const [loggIn, setloggIn] = useState(false);
+
+	const getUser = () => {
+		getData("user").then((result) => {
+			if (result) {
+				setloggIn(true);
+			}
+		});
+	};
+	useEffect(() => {
+		getUser();
+	});
+
+	const handleLogOut = (e) => {
+		e.preventDefault();
+		asyncLocalStorage.removeItem("user").then(() => {
+			getUser();
+		});
+	};
+
 	return (
 		<nav className='container'>
 			<ul>
@@ -43,8 +69,11 @@ function Header() {
 							<img src={IcUser} alt='username' width={40} />
 						</CDropdownToggle>
 						<CDropdownMenu>
-							<CDropdownItem href='/login'>Login</CDropdownItem>
-							<CDropdownItem href='#'>Logout</CDropdownItem>
+							{loggIn ? (
+								<CDropdownItem onClick={(e) => handleLogOut(e)}>Logout</CDropdownItem>
+							) : (
+								<CDropdownItem href='/login'>Login</CDropdownItem>
+							)}
 						</CDropdownMenu>
 					</CDropdown>
 				</li>

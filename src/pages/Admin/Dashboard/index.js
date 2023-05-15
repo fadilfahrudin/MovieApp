@@ -7,66 +7,47 @@ import {
 	CTableHeaderCell,
 	CTableRow,
 } from "@coreui/react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./dashboard.css";
-import { useNavigate } from "react-router-dom";
-
-const columns = [
-	{
-		key: "id",
-		label: "No",
-		_props: { scope: "col" },
-	},
-	{
-		key: "Title",
-		_props: { scope: "col" },
-	},
-	{
-		key: "",
-		label: "Heading",
-		_props: { scope: "col" },
-	},
-	{
-		key: "heading_2",
-		label: "Heading",
-		_props: { scope: "col" },
-	},
-];
-const items = [
-	{
-		id: 1,
-		class: "Mark",
-		heading_1: "Otto",
-		heading_2: "@mdo",
-		_cellProps: { id: { scope: "row" } },
-	},
-	{
-		id: 2,
-		class: "Jacob",
-		heading_1: "Thornton",
-		heading_2: "@fat",
-		_cellProps: { id: { scope: "row" } },
-	},
-	{
-		id: 3,
-		class: "Larry the Bird",
-		heading_2: "@twitter",
-		_cellProps: { id: { scope: "row" }, class: { colSpan: 2 } },
-	},
-];
+// import { useSelector } from "react-redux";
+// import { selectUser } from "../../../redux/userSlice";
+import { Link, useNavigate } from "react-router-dom";
+import { getData } from "../../../utils/storage";
+import Axios from "axios";
 
 const Dashboard = () => {
 	const navigate = useNavigate();
+	// const user = useSelector(selectUser);
+	useEffect(() => {
+		return getMovies();
+	}, []);
+
+	const [movies, setMovies] = useState([]);
+
+	const getMovies = () => {
+		Axios.get("http://localhost:2001/movies").then((result) => {
+			setMovies(result.data);
+		});
+	};
+
+	useEffect(() => {
+		getData("user").then((result) => {
+			if (!result) {
+				navigate("/login");
+			}
+		});
+	});
 
 	const handleCreate = (e) => {
 		navigate("/admin/tambah");
 	};
-	const handleEdit = (e) => {
-		navigate("/admin/edit");
-	};
-	const handleDelete = (e) => {
-		e.preventDefault();
-		console.log("Delete");
+	const handleDelete = async (id) => {
+		try {
+			await Axios.delete(`http://localhost:2001/movies/${id}`);
+			getMovies();
+		} catch (error) {
+			console.log(error);
+		}
 	};
 
 	return (
@@ -81,28 +62,37 @@ const Dashboard = () => {
 						<CTableRow>
 							<CTableHeaderCell scope='col'>No</CTableHeaderCell>
 							<CTableHeaderCell scope='col'>Title</CTableHeaderCell>
-							<CTableHeaderCell scope='col'>Produce By</CTableHeaderCell>
 							<CTableHeaderCell scope='col'>Genre</CTableHeaderCell>
 							<CTableHeaderCell scope='col'>Year</CTableHeaderCell>
+							<CTableHeaderCell scope='col'>Description</CTableHeaderCell>
 							<CTableHeaderCell scope='col'>Action</CTableHeaderCell>
 						</CTableRow>
 					</CTableHead>
 					<CTableBody>
-						<CTableRow>
-							<CTableHeaderCell scope='row'>1</CTableHeaderCell>
-							<CTableDataCell>Avengers End Game</CTableDataCell>
-							<CTableDataCell>Marvel Studios</CTableDataCell>
-							<CTableDataCell>Action, Adventure, Drama</CTableDataCell>
-							<CTableDataCell>2019</CTableDataCell>
-							<CTableDataCell>
-								<CButton color='info' onClick={handleEdit}>
-									Edit
-								</CButton>
-								<CButton color='danger' onClick={handleDelete}>
-									Delete
-								</CButton>
-							</CTableDataCell>
-						</CTableRow>
+						{movies.map((movie, index) => (
+							<CTableRow key={movie.id}>
+								<CTableHeaderCell scope='row'>{1 + index}</CTableHeaderCell>
+								<CTableDataCell>{movie.title}</CTableDataCell>
+								<CTableDataCell>{movie.genres}</CTableDataCell>
+								<CTableDataCell>{movie.year}</CTableDataCell>
+								<CTableDataCell>{movie.description}</CTableDataCell>
+								<CTableDataCell>
+									<CButton size='sm' color='info'>
+										<Link
+											style={{ textDecoration: "none" }}
+											to={`/admin/edit/${movie.id}`}>
+											Edit
+										</Link>
+									</CButton>
+									<CButton
+										size='sm'
+										color='danger'
+										onClick={() => handleDelete(movie.id)}>
+										Delete
+									</CButton>
+								</CTableDataCell>
+							</CTableRow>
+						))}
 						<CTableRow></CTableRow>
 					</CTableBody>
 				</CTable>

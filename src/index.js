@@ -5,6 +5,8 @@ import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
 import "./styles/index.css";
 import MainRoutes from "./routes/MainRoutes";
+import { Provider } from "react-redux";
+import Store from "./redux/store";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 const title = document.getElementsByTagName("title")[0];
 title.innerHTML = "FF Movie";
@@ -12,7 +14,9 @@ title.innerHTML = "FF Movie";
 root.render(
 	<React.StrictMode>
 		<BrowserRouter>
-			<MainRoutes />
+			<Provider store={Store}>
+				<MainRoutes />
+			</Provider>
 		</BrowserRouter>
 	</React.StrictMode>
 );

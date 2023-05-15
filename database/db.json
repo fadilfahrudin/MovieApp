@@ -1,0 +1,65 @@
+{
+  "users": [
+    {
+      "name": "admin2",
+      "email": "admin2@movies.com",
+      "password": "admin2",
+      "id": 4
+    },
+    {
+      "name": "fadil",
+      "email": "admin1@movies.com",
+      "password": "admin1",
+      "id": 5
+    },
+    {
+      "email": "",
+      "password": "",
+      "id": 6
+    },
+    {
+      "email": "",
+      "password": "",
+      "id": 7
+    },
+    {
+      "email": "",
+      "password": "",
+      "id": 8
+    },
+    {
+      "email": "",
+      "password": "",
+      "id": 9
+    },
+    {
+      "email": "",
+      "password": "",
+      "id": 10
+    },
+    {
+      "email": "admin2@movies.com",
+      "password": "admin2",
+      "id": 11
+    }
+  ],
+  "movies": [
+    {
+      "title": "Avengers Age Of Ultron",
+      "genres": "Herro",
+      "image": "C:\\fakepath\\Screenshot 2023-05-12 at 21.42.33.png",
+      "year": "2019",
+      "description": "Ini film avengers",
+      "id": 1,
+      "imgUrl": "blob:http://localhost:3002/010df7de-ca6d-42e2-8baf-a02187f9fe48"
+    },
+    {
+      "title": "Ironman 1",
+      "genres": "Action",
+      "image": "C:\\fakepath\\f logo.jpg",
+      "year": "2019",
+      "description": "ironman",
+      "id": 2
+    }
+  ]
+}
