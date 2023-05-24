@@ -9,15 +9,12 @@ import {
 } from "@coreui/react";
 import React, { useEffect, useState } from "react";
 import "./dashboard.css";
-// import { useSelector } from "react-redux";
-// import { selectUser } from "../../../redux/userSlice";
 import { Link, useNavigate } from "react-router-dom";
 import { getData } from "../../../utils/storage";
 import Axios from "axios";
 
 const Dashboard = () => {
 	const navigate = useNavigate();
-	// const user = useSelector(selectUser);
 	useEffect(() => {
 		return getMovies();
 	}, []);
@@ -25,7 +22,7 @@ const Dashboard = () => {
 	const [movies, setMovies] = useState([]);
 
 	const getMovies = () => {
-		Axios.get("http://localhost:2001/movies").then((result) => {
+		Axios.get("http://localhost:5000/api/movies?_limit=6").then((result) => {
 			setMovies(result.data);
 		});
 	};
@@ -42,11 +39,13 @@ const Dashboard = () => {
 		navigate("/admin/tambah");
 	};
 	const handleDelete = async (id) => {
-		try {
-			await Axios.delete(`http://localhost:2001/movies/${id}`);
-			getMovies();
-		} catch (error) {
-			console.log(error);
+		if (window.confirm("Sure want to delete?")) {
+			try {
+				await Axios.delete(`http://localhost:5000/api/movies/${id}`);
+				getMovies();
+			} catch (error) {
+				console.log(error);
+			}
 		}
 	};
 
@@ -73,7 +72,7 @@ const Dashboard = () => {
 							<CTableRow key={movie.id}>
 								<CTableHeaderCell scope='row'>{1 + index}</CTableHeaderCell>
 								<CTableDataCell>{movie.title}</CTableDataCell>
-								<CTableDataCell>{movie.genres}</CTableDataCell>
+								<CTableDataCell>{movie.genre}</CTableDataCell>
 								<CTableDataCell>{movie.year}</CTableDataCell>
 								<CTableDataCell>{movie.description}</CTableDataCell>
 								<CTableDataCell>

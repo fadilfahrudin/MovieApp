@@ -5,6 +5,7 @@ import {
 	CFormInput,
 	CFormLabel,
 	CFormTextarea,
+	CImage,
 	CRow,
 } from "@coreui/react";
 import React, { useEffect, useState } from "react";
@@ -22,47 +23,59 @@ const Edit = () => {
 	const navigate = useNavigate();
 
 	const [title, setTitle] = useState("");
-	const [genres, setGenre] = useState([]);
-	const [image, setImage] = useState("");
+	const [genre, setGenre] = useState("");
+	const [poster, setPoster] = useState("");
 	const [year, setYear] = useState("");
 	const [description, setDesctiption] = useState("");
+	const [posterSaved, setPosterSaved] = useState();
+
+	const onImageChange = (e) => {
+		if (e.target.files && e.target.files[0]) {
+			let getPoster = e.target.files[0];
+			setPoster(URL.createObjectURL(getPoster));
+			setPosterSaved(getPoster);
+		}
+	};
 
 	useEffect(() => {
+		const getMovieById = () => {
+			Axios.get(`http://localhost:5000/api/movies/${id}`).then((response) => {
+				setTitle(response.data.title);
+				setGenre(response.data.genre);
+				setPoster(response.data.poster);
+				setYear(response.data.year);
+				setDesctiption(response.data.description);
+			});
+		};
 		getMovieById();
 	}, []);
 
-	const getMovieById = async () => {
-		const response = await Axios.get(`http://localhost:2001/movies/${id}`);
-		setTitle(response.data.title);
-		setGenre(response.data.genres);
-		setImage(response.data.images);
-		setYear(response.data.year);
-		setDesctiption(response.data.description);
-	};
-
-	const handleSubmit = async (e) => {
+	const handleSubmit = (e) => {
 		e.preventDefault();
-		console.log(imgUrl);
-		try {
-			await Axios.patch(`http://localhost:2001/movies/${id}`, {
-				title,
-				genres,
-				imgUrl,
-				year,
-				description,
-			});
-			navigate("/admin");
-		} catch (error) {
-			console.log(error);
-		}
-	};
+		// cek user ganti photo atau tdk
+		let getPoster = e.target[2].files[0];
 
-	const [imgUrl, setImgUrl] = useState();
-	const onImageChange = (e) => {
-		if (e.target.files && e.target.files[0]) {
-			let img = e.target.files[0];
-			setImgUrl(URL.createObjectURL(img));
+		let formData = new FormData();
+		formData.append("id", id);
+		formData.append("title", title);
+		formData.append("genre", genre);
+		formData.append("year", year);
+		formData.append("description", description);
+
+		if (!getPoster) {
+			formData.append("poster", poster);
+		} else {
+			formData.append("poster", posterSaved);
 		}
+
+		Axios.put(`http://localhost:5000/api/movies/update`, formData)
+			.then((res) => {
+				console.log(res);
+				navigate("/admin");
+			})
+			.catch((err) => {
+				console.error(err);
+			});
 	};
 
 	return (
@@ -93,12 +106,15 @@ const Edit = () => {
 								style={inputStyle}
 								type='text'
 								id='genre'
-								value={genres}
+								value={genre}
 								onChange={(e) => setGenre(e.target.value)}
 							/>
 						</CCol>
 					</CRow>
 					<CRow className='mb-3'>
+						<div style={{ textAlign: "center" }}>
+							<CImage src={poster} alt={title} width={150} height={200} style={{}} />
+						</div>
 						<CFormLabel htmlFor='image' className='col-sm-2 col-form-label'>
 							Image
 						</CFormLabel>
@@ -107,8 +123,8 @@ const Edit = () => {
 								style={inputStyle}
 								type='file'
 								id='image'
-								value={image}
 								onChange={onImageChange}
+								accept='image/*'
 							/>
 						</CCol>
 					</CRow>

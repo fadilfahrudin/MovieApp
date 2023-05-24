@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { redirect, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import {
 	CButton,
 	CDropdownDivider,
@@ -9,15 +9,13 @@ import {
 } from "@coreui/react";
 import "./login.css";
 import Axios from "axios";
-import { useDispatch, useSelector } from "react-redux";
-import { login, selectUser } from "../../redux/userSlice";
 import { getData, storeData } from "../../utils/storage";
 
 const inputStyle = {
 	height: "40px",
 };
 
-const Login = ({ navigation }) => {
+const Login = () => {
 	const navigate = useNavigate();
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
@@ -34,8 +32,9 @@ const Login = ({ navigation }) => {
 		e.preventDefault();
 		const getUserSubmit = { email, password };
 
-		Axios.get("http://localhost:2001/users", getUserSubmit)
+		Axios.get("http://localhost:5000/api/users", getUserSubmit)
 			.then((result) => {
+				console.log(result);
 				const database = result.data;
 				const userData = database.find(
 					(user) => user.email === getUserSubmit.email
@@ -53,14 +52,14 @@ const Login = ({ navigation }) => {
 				}
 			})
 			.catch((err) => {
-				console.log(err);
+				console.log("message", err);
 			});
 	};
 
 	return (
 		<div className='container-login'>
 			<div className='wrapper-login'>
-				<CForm className='px-4 py-4' onSubmit={(e) => handleSubmit(e)}>
+				<CForm className='px-4 py-4' onSubmit={handleSubmit}>
 					<div className='mb-3'>
 						<CFormLabel htmlFor='exampleDropdownFormEmail1'>Email address</CFormLabel>
 						<CFormInput

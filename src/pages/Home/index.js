@@ -7,8 +7,6 @@ const Home = () => {
 		<main>
 			<Carousel />
 			<Card />
-			<Card />
-			<Card />
 		</main>
 	);
 };

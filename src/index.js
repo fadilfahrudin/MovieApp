@@ -13,11 +13,11 @@ title.innerHTML = "FF Movie";
 
 root.render(
 	<React.StrictMode>
-		<BrowserRouter>
-			<Provider store={Store}>
+		<Provider store={Store}>
+			<BrowserRouter>
 				<MainRoutes />
-			</Provider>
-		</BrowserRouter>
+			</BrowserRouter>
+		</Provider>
 	</React.StrictMode>
 );
 

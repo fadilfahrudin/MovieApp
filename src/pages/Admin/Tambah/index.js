@@ -5,6 +5,7 @@ import {
 	CFormInput,
 	CFormLabel,
 	CFormTextarea,
+	CImage,
 	CRow,
 } from "@coreui/react";
 import React, { useState } from "react";
@@ -20,39 +21,41 @@ const Tambah = () => {
 	const navigate = useNavigate();
 
 	const [title, setTitle] = useState("");
-	const [genres, setGenre] = useState([]);
-	// const [image, setImage] = useState("");
+	const [genre, setGenre] = useState([]);
+	const [poster, setPoster] = useState(null);
+	const [posterSaved, setPosterSaved] = useState("");
 	const [year, setYear] = useState("");
 	const [description, setDesctiption] = useState("");
 
-	const handleSubmit = (e) => {
-		e.preventDefault();
-		const data = {
-			title,
-			genres,
-			imgUrl,
-			year,
-			description,
-		};
-		console.log(data);
-		if (data) {
-			Axios.post("http://localhost:2001/movies", data).then((result) => {
-				try {
-					navigate("/admin");
-				} catch (error) {
-					console.log(error);
-				}
-			});
-		} else {
-			console.log("isi data dulu");
+	const onPosterChange = (e) => {
+		if (e.target.files && e.target.files[0]) {
+			let getPoster = e.target.files[0];
+			setPoster(URL.createObjectURL(getPoster));
+			setPosterSaved(getPoster);
 		}
 	};
 
-	const [imgUrl, setImgUrl] = useState();
-	const onImageChange = (e) => {
-		if (e.target.files && e.target.files[0]) {
-			let img = e.target.files[0];
-			setImgUrl(URL.createObjectURL(img));
+	const handleSubmit = (e) => {
+		e.preventDefault();
+
+		let formData = new FormData();
+		formData.append("title", title);
+		formData.append("genre", genre);
+		formData.append("year", year);
+		formData.append("description", description);
+		formData.append("poster", posterSaved);
+
+		if (formData) {
+			Axios.post("http://localhost:5000/api/movie/create", formData)
+				.then((res) => {
+					console.log(res);
+					navigate("/admin");
+				})
+				.catch((err) => {
+					console.error(err);
+				});
+		} else {
+			console.log("isi data dulu");
 		}
 	};
 
@@ -84,12 +87,19 @@ const Tambah = () => {
 								style={inputStyle}
 								type='text'
 								id='genre'
-								value={genres}
+								value={genre}
 								onChange={(e) => setGenre(e.target.value)}
 							/>
 						</CCol>
 					</CRow>
 					<CRow className='mb-3'>
+						{poster ? (
+							<div style={{ textAlign: "center" }}>
+								<CImage src={poster} alt={title} width={150} height={200} style={{}} />
+							</div>
+						) : (
+							""
+						)}
 						<CFormLabel htmlFor='image' className='col-sm-2 col-form-label'>
 							Image
 						</CFormLabel>
@@ -98,7 +108,7 @@ const Tambah = () => {
 								style={inputStyle}
 								type='file'
 								id='image'
-								onChange={onImageChange}
+								onChange={onPosterChange}
 								accept='image/*'
 							/>
 						</CCol>

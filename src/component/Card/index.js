@@ -1,96 +1,32 @@
-import React from "react";
-import {
-	BannerDummy1,
-	BannerDummy2,
-	BannerDummy3,
-	PosterDummy1,
-	PosterDummy2,
-	PosterDummy3,
-} from "../../assets/img";
+import React, { useEffect, useState } from "react";
 import "./card.css";
-
-const movieData = [
-	{
-		img: `${PosterDummy1}`,
-		link: "/",
-		des: "deskripsi singkat film",
-		title: "Dummy Image",
-		producedBy: "Marvel Studio",
-		genre: "drama",
-		year: 2015,
-		published: "2015-03-25",
-	},
-	{
-		img: `${PosterDummy2}`,
-		link: "/",
-		des: "deskripsi singkat film",
-		title: "Dummy Image",
-		producedBy: "DC Universe",
-		genre: "komedi",
-		year: 2016,
-		published: "2016-03-25",
-	},
-	{
-		img: `${PosterDummy3}`,
-		link: "/",
-		des: "deskripsi singkat film",
-		title: "Dummy Image",
-		producedBy: "Falcon Picture",
-		genre: "drama",
-		year: 2017,
-		published: "2017-03-25",
-	},
-	{
-		img: `${PosterDummy3}`,
-		link: "/",
-		des: "deskripsi singkat film",
-		title: "Dummy Image",
-		producedBy: "Falcon Picture",
-		genre: "drama",
-		year: 2017,
-		published: "2017-03-25",
-	},
-	{
-		img: `${PosterDummy3}`,
-		link: "/",
-		des: "deskripsi singkat film",
-		title: "Dummy Image",
-		producedBy: "Falcon Picture",
-		genre: "drama",
-		year: 2017,
-		published: "2017-03-25",
-	},
-	{
-		img: `${PosterDummy3}`,
-		link: "/",
-		des: "deskripsi singkat film",
-		title: "Dummy Image",
-		producedBy: "Falcon Picture",
-		genre: "drama",
-		year: 2017,
-		published: "2017-03-25",
-	},
-	{
-		img: `${PosterDummy3}`,
-		link: "/",
-		des: "deskripsi singkat film",
-		title: "Dummy Image",
-		producedBy: "Falcon Picture",
-		genre: "drama",
-		year: 2017,
-		published: "2017-03-25",
-	},
-];
-
-const moviesRender = movieData.map((movie) => (
-	<div className='poster-wrapper' key={movie.title}>
-		<a href='/'>
-			<img className='posterMovie' src={movie.img} alt={movie.title} />
-		</a>
-	</div>
-));
+import axios from "axios";
 
 const Card = () => {
+	const [movies, setMovies] = useState([]);
+
+	const getMovies = async (req, res) => {
+		const responses = await axios.get("http://localhost:5000/api/movies");
+		try {
+			// console.log(responses.data);
+			setMovies(responses.data);
+		} catch (error) {
+			console.log(error);
+		}
+	};
+
+	useEffect(() => {
+		getMovies();
+	}, []);
+
+	const moviesRender = movies.map((movie, index) => (
+		<div className='poster-wrapper' key={index}>
+			<a href='/'>
+				<img className='posterMovie' src={movie.poster} alt={movie.title} />
+			</a>
+		</div>
+	));
+
 	return (
 		<div className='card-container'>
 			<h1>Genre Movie</h1>

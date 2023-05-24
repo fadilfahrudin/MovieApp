@@ -24,8 +24,8 @@ const vars = {
 };
 
 function Header() {
-	const user = useSelector(selectUser);
-	const navigate = useNavigate();
+	// const user = useSelector(selectUser);
+	// const navigate = useNavigate();
 	const [loggIn, setloggIn] = useState(false);
 
 	const getUser = () => {
@@ -64,17 +64,20 @@ function Header() {
 					<img src={IcSearch} alt='find' width={20} />
 				</li>
 				<li className='right'>
-					<CDropdown>
+					<CDropdown direction='center'>
 						<CDropdownToggle style={vars}>
 							<img src={IcUser} alt='username' width={40} />
 						</CDropdownToggle>
-						<CDropdownMenu>
-							{loggIn ? (
+						{loggIn ? (
+							<CDropdownMenu>
+								<CDropdownItem href='/admin'>Dashboard</CDropdownItem>
 								<CDropdownItem onClick={(e) => handleLogOut(e)}>Logout</CDropdownItem>
-							) : (
+							</CDropdownMenu>
+						) : (
+							<CDropdownMenu className=''>
 								<CDropdownItem href='/login'>Login</CDropdownItem>
-							)}
-						</CDropdownMenu>
+							</CDropdownMenu>
+						)}
 					</CDropdown>
 				</li>
 			</ul>
