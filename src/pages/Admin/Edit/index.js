@@ -1,22 +1,8 @@
-import {
-	CButton,
-	CCol,
-	CForm,
-	CFormInput,
-	CFormLabel,
-	CFormTextarea,
-	CImage,
-	CRow,
-} from "@coreui/react";
 import React, { useEffect, useState } from "react";
 import "./edit.css";
 import { useNavigate } from "react-router";
 import { useParams } from "react-router-dom";
 import Axios from "axios";
-
-const inputStyle = {
-	height: "40px",
-};
 
 const Edit = () => {
 	const { id } = useParams();
@@ -27,9 +13,9 @@ const Edit = () => {
 	const [poster, setPoster] = useState("");
 	const [year, setYear] = useState("");
 	const [description, setDesctiption] = useState("");
-	const [posterSaved, setPosterSaved] = useState();
+	const [posterSaved, setPosterSaved] = useState("");
 
-	const onImageChange = (e) => {
+	const onPosterChange = (e) => {
 		if (e.target.files && e.target.files[0]) {
 			let getPoster = e.target.files[0];
 			setPoster(URL.createObjectURL(getPoster));
@@ -38,22 +24,25 @@ const Edit = () => {
 	};
 
 	useEffect(() => {
-		const getMovieById = () => {
-			Axios.get(`http://localhost:5000/api/movies/${id}`).then((response) => {
-				setTitle(response.data.title);
-				setGenre(response.data.genre);
-				setPoster(response.data.poster);
-				setYear(response.data.year);
-				setDesctiption(response.data.description);
-			});
-		};
 		getMovieById();
 	}, []);
+
+	const getMovieById = () => {
+		Axios.get(`http://localhost:5000/api/movies/${id}`).then((response) => {
+			setTitle(response.data.title);
+			setGenre(response.data.genre);
+			setPoster(response.data.poster);
+			setYear(response.data.year);
+			setDesctiption(response.data.description);
+		});
+	};
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		// cek user ganti photo atau tdk
-		let getPoster = e.target[2].files[0];
+		let getPoster = e.target[3].files[0];
+
+		// console.log(getPoster);
 
 		let formData = new FormData();
 		formData.append("id", id);
@@ -68,9 +57,9 @@ const Edit = () => {
 			formData.append("poster", posterSaved);
 		}
 
-		Axios.put(`http://localhost:5000/api/movies/update`, formData)
+		Axios.put(`http://localhost:5000/api/movie/update`, formData)
 			.then((res) => {
-				console.log(res);
+				// console.log(res);
 				navigate("/admin");
 			})
 			.catch((err) => {
@@ -79,83 +68,88 @@ const Edit = () => {
 	};
 
 	return (
-		<div className='container-edit'>
-			<h1>Tambah Data</h1>
-			<div className='content-wrapper'>
-				<CForm onSubmit={handleSubmit}>
-					<CRow className='mb-3'>
-						<CFormLabel htmlFor='title' className='col-sm-2 col-form-label'>
-							Title
-						</CFormLabel>
-						<CCol sm={10}>
-							<CFormInput
-								style={inputStyle}
-								type='text'
-								id='title'
-								value={title}
-								onChange={(e) => setTitle(e.target.value)}
-							/>
-						</CCol>
-					</CRow>
-					<CRow className='mb-3'>
-						<CFormLabel htmlFor='genre' className='col-sm-2 col-form-label'>
-							Genre
-						</CFormLabel>
-						<CCol sm={10}>
-							<CFormInput
-								style={inputStyle}
-								type='text'
-								id='genre'
-								value={genre}
-								onChange={(e) => setGenre(e.target.value)}
-							/>
-						</CCol>
-					</CRow>
-					<CRow className='mb-3'>
-						<div style={{ textAlign: "center" }}>
-							<CImage src={poster} alt={title} width={150} height={200} style={{}} />
+		<div className='container'>
+			<div className='row bg-light p-3 rounded w-75 mx-auto mt-5'>
+				<div className='row d-flex align-items-center'>
+					<button
+						type='link'
+						className='btn btn-outline-dark btn-sm my-3 col-2'
+						onClick={() => navigate("/admin")}>
+						<span aria-hidden='true'>&laquo;</span> Back
+					</button>
+					<h1 className='col text-dark'>Edit Movie {title}</h1>
+				</div>
+				<form className='text-dark shadow-lg p-2 rounded' onSubmit={handleSubmit}>
+					<div className='row'>
+						<div className='col'>
+							<div className='form-floating mb-3'>
+								<input
+									type='text'
+									className='form-control'
+									id='title'
+									value={title}
+									onChange={(e) => setTitle(e.target.value)}
+									placeholder='Avengers End Game'
+								/>
+								<label htmlFor='floatingInput'>Title Movie</label>
+							</div>
+							<div className='row'>
+								<div className='col'>
+									<div className='form-floating mb-3'>
+										<input
+											type='text'
+											className='form-control'
+											id='genre'
+											placeholder='Example: Action, Hero dll'
+											value={genre}
+											onChange={(e) => setGenre(e.target.value)}
+										/>
+										<label htmlFor='floatingInput'>Genre</label>
+									</div>
+								</div>
+								<div className='col'>
+									<div className='form-floating mb-3 col'>
+										<input
+											type='number'
+											className='form-control'
+											id='year'
+											placeholder='Example: 2019'
+											value={year}
+											onChange={(e) => setYear(e.target.value)}
+										/>
+										<label htmlFor='floatingInput'>Year</label>
+									</div>
+								</div>
+							</div>
+							<div className='mb-3'>
+								<input
+									className='form-control'
+									type='file'
+									id='formFile'
+									style={{ height: "35px" }}
+									onChange={onPosterChange}
+								/>
+							</div>
+							<div className='form-floating mb-3'>
+								<textarea
+									className='form-control'
+									placeholder='Description here'
+									id='description'
+									value={description}
+									onChange={(e) => setDesctiption(e.target.value)}></textarea>
+								<label htmlFor='description'>Description</label>
+							</div>
 						</div>
-						<CFormLabel htmlFor='image' className='col-sm-2 col-form-label'>
-							Image
-						</CFormLabel>
-						<CCol sm={10}>
-							<CFormInput
-								style={inputStyle}
-								type='file'
-								id='image'
-								onChange={onImageChange}
-								accept='image/*'
-							/>
-						</CCol>
-					</CRow>
-					<CRow className='mb-3'>
-						<CFormLabel htmlFor='year' className='col-sm-2 col-form-label'>
-							Year
-						</CFormLabel>
-						<CCol sm={10}>
-							<CFormInput
-								style={inputStyle}
-								type='number'
-								id='year'
-								value={year}
-								onChange={(e) => setYear(e.target.value)}
-							/>
-						</CCol>
-					</CRow>
-					<CRow className='mb-3'>
-						<CFormLabel htmlFor='description' className='col-sm-2 col-form-label'>
-							Description
-						</CFormLabel>
-						<CCol sm={10}>
-							<CFormTextarea
-								id='floatingTextarea'
-								floatingLabel='Description'
-								value={description}
-								onChange={(e) => setDesctiption(e.target.value)}></CFormTextarea>
-						</CCol>
-					</CRow>
-					<CButton type='submit'>Simpan</CButton>
-				</CForm>
+						<div className='col'>
+							<div className='mx-auto d-flex justify-content-center'>
+								<img src={poster} alt='poster' width={200} height={250} />
+							</div>
+							<button type='submit' className='btn btn-success w-100 mt-2 '>
+								Update
+							</button>
+						</div>
+					</div>
+				</form>
 			</div>
 		</div>
 	);

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { getData } from "../../../utils/storage";
 import Axios from "axios";
 
@@ -12,7 +12,7 @@ const Dashboard = () => {
 	const [movies, setMovies] = useState([]);
 
 	const getMovies = () => {
-		Axios.get("http://localhost:5000/api/movies?_limit=6").then((result) => {
+		Axios.get("http://localhost:5000/api/movies").then((result) => {
 			setMovies(result.data);
 		});
 	};
@@ -25,9 +25,6 @@ const Dashboard = () => {
 		});
 	});
 
-	const handleCreate = (e) => {
-		navigate("/admin/tambah");
-	};
 	const handleDelete = async (id) => {
 		if (window.confirm("Sure want to delete?")) {
 			try {
@@ -39,24 +36,33 @@ const Dashboard = () => {
 		}
 	};
 
+	const handleSearch = () => {};
+
 	return (
 		<div className='container'>
 			<h1 className='title'>Dashboard</h1>
 			<div className='col'>
 				<div className='row'>
-					<div>
-						<div className='input-group mb-3'>
-							<input
-								type='text'
-								className='form-control'
-								placeholder='Find something here...'
-								style={{ height: "40px" }}
-							/>
-							<button className='btn btn-primary' type='submit'>
-								Search
-							</button>
-						</div>
+					<div className='col'>
+						<button
+							className='btn btn-primary mx-3'
+							type='button'
+							onClick={() => navigate("/admin/tambah")}>
+							+ Add Movie
+						</button>
 					</div>
+					<div className='input-group mb-3 col'>
+						<input
+							type='text'
+							className='form-control'
+							placeholder='Find something here...'
+							style={{ height: "40px" }}
+						/>
+						<button className='btn btn-primary' type='button' onClick={handleSearch}>
+							Search
+						</button>
+					</div>
+
 					<table className='table table-striped table-bordered'>
 						<thead className='table-dark'>
 							<tr>
@@ -77,8 +83,16 @@ const Dashboard = () => {
 									<td>{movie.year}</td>
 									<td>{movie.description}</td>
 									<td>
-										<button className='btn btn-info btn-sm'>Edit</button>{" "}
-										<button className='btn btn-danger btn-sm'>Delete</button>
+										<button
+											className='btn btn-info btn-sm'
+											onClick={() => navigate(`/admin/edit/${movie.id}`)}>
+											Edit
+										</button>
+										<button
+											className='btn btn-danger btn-sm'
+											onClick={() => handleDelete(movie.id)}>
+											Delete
+										</button>
 									</td>
 								</tr>
 							))}

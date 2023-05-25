@@ -1,28 +1,14 @@
-import {
-	CButton,
-	CCol,
-	CForm,
-	CFormInput,
-	CFormLabel,
-	CFormTextarea,
-	CImage,
-	CRow,
-} from "@coreui/react";
 import React, { useState } from "react";
 import "./tambah.css";
 import { useNavigate } from "react-router";
 import Axios from "axios";
-
-const inputStyle = {
-	height: "40px",
-};
 
 const Tambah = () => {
 	const navigate = useNavigate();
 
 	const [title, setTitle] = useState("");
 	const [genre, setGenre] = useState([]);
-	const [poster, setPoster] = useState(null);
+	const [poster, setPoster] = useState("https://placeholder.pics/svg/200x250");
 	const [posterSaved, setPosterSaved] = useState("");
 	const [year, setYear] = useState("");
 	const [description, setDesctiption] = useState("");
@@ -48,7 +34,7 @@ const Tambah = () => {
 		if (formData) {
 			Axios.post("http://localhost:5000/api/movie/create", formData)
 				.then((res) => {
-					console.log(res);
+					// console.log(res);
 					navigate("/admin");
 				})
 				.catch((err) => {
@@ -60,87 +46,88 @@ const Tambah = () => {
 	};
 
 	return (
-		<div className='container-tambah'>
-			<h1>Tambah Data</h1>
-			<div className='content-wrapper'>
-				<CForm onSubmit={handleSubmit}>
-					<CRow className='mb-3'>
-						<CFormLabel htmlFor='title' className='col-sm-2 col-form-label'>
-							Title
-						</CFormLabel>
-						<CCol sm={10}>
-							<CFormInput
-								style={inputStyle}
-								type='text'
-								id='title'
-								value={title}
-								onChange={(e) => setTitle(e.target.value)}
-							/>
-						</CCol>
-					</CRow>
-					<CRow className='mb-3'>
-						<CFormLabel htmlFor='genre' className='col-sm-2 col-form-label'>
-							Genre
-						</CFormLabel>
-						<CCol sm={10}>
-							<CFormInput
-								style={inputStyle}
-								type='text'
-								id='genre'
-								value={genre}
-								onChange={(e) => setGenre(e.target.value)}
-							/>
-						</CCol>
-					</CRow>
-					<CRow className='mb-3'>
-						{poster ? (
-							<div style={{ textAlign: "center" }}>
-								<CImage src={poster} alt={title} width={150} height={200} style={{}} />
+		<div className='container'>
+			<div className='row bg-light p-3 rounded w-75 mx-auto mt-5'>
+				<div className='row d-flex align-items-center'>
+					<button
+						type='link'
+						className='btn btn-outline-dark btn-sm my-3 col-2'
+						onClick={() => navigate("/admin")}>
+						<span aria-hidden='true'>&laquo;</span> Back
+					</button>
+					<h1 className='col text-dark'>Add New Movie</h1>
+				</div>
+				<form className='text-dark shadow-lg p-2 rounded' onSubmit={handleSubmit}>
+					<div className='row'>
+						<div className='col'>
+							<div className='form-floating mb-3'>
+								<input
+									type='text'
+									className='form-control'
+									id='title'
+									value={title}
+									onChange={(e) => setTitle(e.target.value)}
+									placeholder='Avengers End Game'
+								/>
+								<label htmlFor='floatingInput'>Title Movie</label>
 							</div>
-						) : (
-							""
-						)}
-						<CFormLabel htmlFor='image' className='col-sm-2 col-form-label'>
-							Image
-						</CFormLabel>
-						<CCol sm={10}>
-							<CFormInput
-								style={inputStyle}
-								type='file'
-								id='image'
-								onChange={onPosterChange}
-								accept='image/*'
-							/>
-						</CCol>
-					</CRow>
-					<CRow className='mb-3'>
-						<CFormLabel htmlFor='year' className='col-sm-2 col-form-label'>
-							Year
-						</CFormLabel>
-						<CCol sm={10}>
-							<CFormInput
-								style={inputStyle}
-								type='number'
-								id='year'
-								value={year}
-								onChange={(e) => setYear(e.target.value)}
-							/>
-						</CCol>
-					</CRow>
-					<CRow className='mb-3'>
-						<CFormLabel htmlFor='description' className='col-sm-2 col-form-label'>
-							Description
-						</CFormLabel>
-						<CCol sm={10}>
-							<CFormTextarea
-								id='floatingTextarea'
-								floatingLabel='Description'
-								value={description}
-								onChange={(e) => setDesctiption(e.target.value)}></CFormTextarea>
-						</CCol>
-					</CRow>
-					<CButton type='submit'>Simpan</CButton>
-				</CForm>
+							<div className='row'>
+								<div className='col'>
+									<div className='form-floating mb-3'>
+										<input
+											type='text'
+											className='form-control'
+											id='genre'
+											placeholder='Example: Action, Hero dll'
+											value={genre}
+											onChange={(e) => setGenre(e.target.value)}
+										/>
+										<label htmlFor='floatingInput'>Genre</label>
+									</div>
+								</div>
+								<div className='col'>
+									<div className='form-floating mb-3 col'>
+										<input
+											type='number'
+											className='form-control'
+											id='year'
+											placeholder='Example: 2019'
+											value={year}
+											onChange={(e) => setYear(e.target.value)}
+										/>
+										<label htmlFor='floatingInput'>Year</label>
+									</div>
+								</div>
+							</div>
+							<div className='mb-3'>
+								<input
+									className='form-control'
+									type='file'
+									id='formFile'
+									style={{ height: "35px" }}
+									onChange={onPosterChange}
+								/>
+							</div>
+							<div className='form-floating mb-3'>
+								<textarea
+									className='form-control'
+									placeholder='Description here'
+									id='description'
+									value={description}
+									onChange={(e) => setDesctiption(e.target.value)}></textarea>
+								<label htmlFor='description'>Description</label>
+							</div>
+						</div>
+						<div className='col'>
+							<div className='mx-auto d-flex justify-content-center'>
+								<img src={poster} alt='poster' width={200} height={250} />
+							</div>
+							<button type='submit' className='btn btn-success w-100 mt-2 '>
+								Save
+							</button>
+						</div>
+					</div>
+				</form>
 			</div>
 		</div>
 	);
