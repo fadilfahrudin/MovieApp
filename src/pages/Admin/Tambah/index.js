@@ -8,7 +8,9 @@ const Tambah = () => {
 
 	const [title, setTitle] = useState("");
 	const [genre, setGenre] = useState([]);
-	const [poster, setPoster] = useState("https://placeholder.pics/svg/200x250");
+	const [poster, setPoster] = useState(
+		"https://placeholder.pics/svg/200x250/DEDEDE/555555/Poster%20Movie"
+	);
 	const [posterSaved, setPosterSaved] = useState("");
 	const [year, setYear] = useState("");
 	const [description, setDesctiption] = useState("");
