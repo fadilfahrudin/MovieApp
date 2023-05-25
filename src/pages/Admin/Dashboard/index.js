@@ -1,14 +1,4 @@
-import {
-	CButton,
-	CTable,
-	CTableBody,
-	CTableDataCell,
-	CTableHead,
-	CTableHeaderCell,
-	CTableRow,
-} from "@coreui/react";
 import React, { useEffect, useState } from "react";
-import "./dashboard.css";
 import { Link, useNavigate } from "react-router-dom";
 import { getData } from "../../../utils/storage";
 import Axios from "axios";
@@ -50,51 +40,51 @@ const Dashboard = () => {
 	};
 
 	return (
-		<div className='dashboard-container'>
+		<div className='container'>
 			<h1 className='title'>Dashboard</h1>
-			<div className='content-wrapper'>
-				<CButton color='light' onClick={handleCreate}>
-					+ Tambah
-				</CButton>
-				<CTable striped>
-					<CTableHead>
-						<CTableRow>
-							<CTableHeaderCell scope='col'>No</CTableHeaderCell>
-							<CTableHeaderCell scope='col'>Title</CTableHeaderCell>
-							<CTableHeaderCell scope='col'>Genre</CTableHeaderCell>
-							<CTableHeaderCell scope='col'>Year</CTableHeaderCell>
-							<CTableHeaderCell scope='col'>Description</CTableHeaderCell>
-							<CTableHeaderCell scope='col'>Action</CTableHeaderCell>
-						</CTableRow>
-					</CTableHead>
-					<CTableBody>
-						{movies.map((movie, index) => (
-							<CTableRow key={movie.id}>
-								<CTableHeaderCell scope='row'>{1 + index}</CTableHeaderCell>
-								<CTableDataCell>{movie.title}</CTableDataCell>
-								<CTableDataCell>{movie.genre}</CTableDataCell>
-								<CTableDataCell>{movie.year}</CTableDataCell>
-								<CTableDataCell>{movie.description}</CTableDataCell>
-								<CTableDataCell>
-									<CButton size='sm' color='info'>
-										<Link
-											style={{ textDecoration: "none" }}
-											to={`/admin/edit/${movie.id}`}>
-											Edit
-										</Link>
-									</CButton>
-									<CButton
-										size='sm'
-										color='danger'
-										onClick={() => handleDelete(movie.id)}>
-										Delete
-									</CButton>
-								</CTableDataCell>
-							</CTableRow>
-						))}
-						<CTableRow></CTableRow>
-					</CTableBody>
-				</CTable>
+			<div className='col'>
+				<div className='row'>
+					<div>
+						<div className='input-group mb-3'>
+							<input
+								type='text'
+								className='form-control'
+								placeholder='Find something here...'
+								style={{ height: "40px" }}
+							/>
+							<button className='btn btn-primary' type='submit'>
+								Search
+							</button>
+						</div>
+					</div>
+					<table className='table table-striped table-bordered'>
+						<thead className='table-dark'>
+							<tr>
+								<th scope='col'>ID</th>
+								<th scope='col'>Title</th>
+								<th scope='col'>Genre</th>
+								<th scope='col'>Year</th>
+								<th scope='col'>Description</th>
+								<th scope='col'>Action</th>
+							</tr>
+						</thead>
+						<tbody className='table-secondary'>
+							{movies.map((movie) => (
+								<tr key={movie.id}>
+									<td>{movie.id}</td>
+									<td>{movie.title}</td>
+									<td>{movie.genre}</td>
+									<td>{movie.year}</td>
+									<td>{movie.description}</td>
+									<td>
+										<button className='btn btn-info btn-sm'>Edit</button>{" "}
+										<button className='btn btn-danger btn-sm'>Delete</button>
+									</td>
+								</tr>
+							))}
+						</tbody>
+					</table>
+				</div>
 			</div>
 		</div>
 	);

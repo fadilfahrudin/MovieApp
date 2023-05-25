@@ -11,6 +11,7 @@ import { useSelector } from "react-redux";
 import { selectUser } from "../../redux/userSlice";
 import { asyncLocalStorage, getData } from "../../utils/storage";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const menus = [
 	{ name: "Home", link: "/" },
@@ -46,6 +47,22 @@ function Header() {
 		});
 	};
 
+	const handleSearch = () => {
+		let searchData = document.querySelector("#search-input").value;
+
+		axios
+			.get(`http://localhost:5000/api/movies`)
+			.then((res) => {
+				// console.log(res.data);
+				let dataMovies = res.data;
+				const result = dataMovies.find(() => searchData);
+				console.log(result);
+			})
+			.catch((err) => {
+				console.log(err);
+			});
+	};
+
 	return (
 		<nav className='container'>
 			<ul>
@@ -60,8 +77,8 @@ function Header() {
 					</li>
 				))}
 				<li className='search'>
-					<input type='text' placeholder='find your best movie' />
-					<img src={IcSearch} alt='find' width={20} />
+					<input type='text' placeholder='find your best movie' id='search-input' />
+					<img src={IcSearch} alt='find' width={20} onClick={handleSearch} />
 				</li>
 				<li className='right'>
 					<CDropdown direction='center'>

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./card.css";
 import axios from "axios";
 
-const Card = () => {
+const Card = ({ genre, year }) => {
 	const [movies, setMovies] = useState([]);
 
 	const getMovies = async (req, res) => {
