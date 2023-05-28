@@ -64,6 +64,7 @@ const Tambah = () => {
 						<div className='col'>
 							<div className='form-floating mb-3'>
 								<input
+									required
 									type='text'
 									className='form-control'
 									id='title'
@@ -77,6 +78,7 @@ const Tambah = () => {
 								<div className='col'>
 									<div className='form-floating mb-3'>
 										<input
+											required
 											type='text'
 											className='form-control'
 											id='genre'
@@ -90,6 +92,7 @@ const Tambah = () => {
 								<div className='col'>
 									<div className='form-floating mb-3 col'>
 										<input
+											required
 											type='number'
 											className='form-control'
 											id='year'
@@ -103,6 +106,7 @@ const Tambah = () => {
 							</div>
 							<div className='mb-3'>
 								<input
+									required
 									className='form-control'
 									type='file'
 									id='formFile'
@@ -112,6 +116,7 @@ const Tambah = () => {
 							</div>
 							<div className='form-floating mb-3'>
 								<textarea
+									style={{ minHeight: "125px" }}
 									className='form-control'
 									placeholder='Description here'
 									id='description'
@@ -122,9 +127,9 @@ const Tambah = () => {
 						</div>
 						<div className='col'>
 							<div className='mx-auto d-flex justify-content-center'>
-								<img src={poster} alt='poster' width={200} height={250} />
+								<img src={poster} alt='poster' width={200} height={285} />
 							</div>
-							<button type='submit' className='btn btn-success w-100 mt-2 '>
+							<button type='submit' className='btn btn-primary w-100 mt-2 '>
 								Save
 							</button>
 						</div>

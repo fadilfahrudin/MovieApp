@@ -144,7 +144,7 @@ const Edit = () => {
 							<div className='mx-auto d-flex justify-content-center'>
 								<img src={poster} alt='poster' width={200} height={250} />
 							</div>
-							<button type='submit' className='btn btn-success w-100 mt-2 '>
+							<button type='submit' className='btn btn-primary w-100 mt-2 '>
 								Update
 							</button>
 						</div>

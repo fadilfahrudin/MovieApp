@@ -26,7 +26,7 @@
     },
     {
       "title": "WandaVision",
-      "genre": "Herro",
+      "genre": "Hero",
       "year": "2021",
       "description": "Blends the style of classic sitcoms with the MCU, in which Wanda Maximoff and Vision - two super-powered beings living their ideal suburban lives - begin to suspect that everything is not as it seems.",
       "poster": "http://localhost:5000/images/1684940293350_poster-dummy-2.jpeg",
@@ -39,6 +39,142 @@
       "description": "After being struck by lightning, Barry Allen wakes up from his coma to discover he's been given the power of super speed, becoming the Flash, and fighting crime in Central City.",
       "poster": "http://localhost:5000/images/1685023501381_MV5BZDcwMzU4NWYtODIzZi00Yzg4LWJhOTAtOTQ2ZDA4NmFlYmFlXkEyXkFqcGdeQXVyMTY1MTU3NDY5._V1_.jpg",
       "id": 6
+    },
+    {
+      "title": "Loki",
+      "genre": "Action, Adventure, Fantasy",
+      "year": "2021",
+      "description": "The mercurial villain Loki resumes his role as the God of Mischief in a new series that takes place after the events of “Avengers: Endgame.\"",
+      "poster": "http://localhost:5000/images/1685268536621_MV5BNTkwOTE1ZDYtODQ3Yy00YTYwLTg0YWQtYmVkNmFjNGZlYmRiXkEyXkFqcGdeQXVyNTc4MjczMTM@._V1_.jpg",
+      "id": 7
+    },
+    {
+      "title": "Avengers: Age of Ultron",
+      "genre": "Action, Adventure, Sci-Fi",
+      "year": "2015",
+      "description": "When Tony Stark and Bruce Banner try to jump-start a dormant peacekeeping program called Ultron, things go horribly wrong and it's up to Earth's mightiest heroes to stop the villainous Ultron from enacting his terrible plan.",
+      "poster": "http://localhost:5000/images/1685268661370_MV5BMTM4OGJmNWMtOTM4Ni00NTE3LTg3MDItZmQxYjc4N2JhNmUxXkEyXkFqcGdeQXVyNTgzMDMzMTg@._V1_.jpg",
+      "id": 8
+    },
+    {
+      "title": "Avengers: Infinity War",
+      "genre": "Action, Adventure, Sci-Fi",
+      "year": "2018",
+      "description": "The Avengers and their allies must be willing to sacrifice all in an attempt to defeat the powerful Thanos before his blitz of devastation and ruin puts an end to the universe.",
+      "poster": "http://localhost:5000/images/1685268788328_MV5BMjMxNjY2MDU1OV5BMl5BanBnXkFtZTgwNzY1MTUwNTM@._V1_.jpg",
+      "id": 9
+    },
+    {
+      "title": "Captain America: The First Avenger",
+      "genre": "Action, Adventure, Sci-Fi",
+      "year": "2011",
+      "description": "Steve Rogers, a rejected military soldier, transforms into Captain America after taking a dose of a \"Super-Soldier serum\". But being Captain America comes at a price as he attempts to take down a warmonger and a terrorist organization.",
+      "poster": "http://localhost:5000/images/1685268899680_MV5BMTg3NjI4NzIwNF5BMl5BanBnXkFtZTcwNDA3MDU0NA@@._V1_.jpg",
+      "id": 10
+    },
+    {
+      "title": "Captain America: The Winter Soldier",
+      "genre": "Action, Adventure, Sci-Fi",
+      "year": "2014",
+      "description": "As Steve Rogers struggles to embrace his role in the modern world, he teams up with a fellow Avenger and S.H.I.E.L.D agent, Black Widow, to battle a new threat from history: an assassin known as the Winter Soldier.",
+      "poster": "http://localhost:5000/images/1685269216871_MV5BMzA2NDkwODAwM15BMl5BanBnXkFtZTgwODk5MTgzMTE@._V1_.jpg",
+      "id": 11
+    },
+    {
+      "title": "Captain America: Civil War",
+      "genre": "Action, Adventure, Sci-Fi",
+      "year": "2016",
+      "description": "Political involvement in the Avengers' affairs causes a rift between Captain America and Iron Man.",
+      "poster": "http://localhost:5000/images/1685269391775_MV5BMjQ0MTgyNjAxMV5BMl5BanBnXkFtZTgwNjUzMDkyODE@._V1_.jpg",
+      "id": 12
+    },
+    {
+      "title": "Captain Marvel",
+      "genre": "Action, Adventure, Sci-Fi",
+      "year": "2019",
+      "description": "Carol Danvers becomes one of the universe's most powerful heroes when Earth is caught in the middle of a galactic war between two alien races.",
+      "poster": "http://localhost:5000/images/1685269503094_MV5BMTE0YWFmOTMtYTU2ZS00ZTIxLWE3OTEtYTNiYzBkZjViZThiXkEyXkFqcGdeQXVyODMzMzQ4OTI@._V1_.jpg",
+      "id": 13
+    },
+    {
+      "title": "Doctor Strange",
+      "genre": "Action, Adventure, Fantasy",
+      "year": "2016",
+      "description": "While on a journey of physical and spiritual healing, a brilliant neurosurgeon is drawn into the world of the mystic arts.",
+      "poster": "http://localhost:5000/images/1685269620599_MV5BNjgwNzAzNjk1Nl5BMl5BanBnXkFtZTgwMzQ2NjI1OTE@._V1_.jpg",
+      "id": 14
+    },
+    {
+      "title": "Doctor Strange in the Multiverse of Madness",
+      "genre": "Action, Adventure, Fantasy",
+      "year": "2022",
+      "description": "Doctor Strange teams up with a mysterious teenage girl from his dreams who can travel across multiverses, to battle multiple threats, including other-universe versions of himself, which threaten to wipe out millions across the multiverse. They seek help from Wanda the Scarlet Witch, Wong and others.",
+      "poster": "http://localhost:5000/images/1685269825217_MV5BZWJjM2FlMzYtNWQ3Ny00MzM0LTgzY2EtNWU3YzExYmZhMWRiXkEyXkFqcGdeQXVyMTQyMTMwOTk0._V1_.jpg",
+      "id": 15
+    },
+    {
+      "title": "Spider-Man: Homecoming",
+      "genre": "Action, Adventure, Sci-Fi",
+      "year": "2017",
+      "description": "Peter Parker balances his life as an ordinary high school student in Queens with his superhero alter-ego Spider-Man, and finds himself on the trail of a new menace prowling the skies of New York City.",
+      "poster": "http://localhost:5000/images/1685270008577_MV5BNTk4ODQ1MzgzNl5BMl5BanBnXkFtZTgwMTMyMzM4MTI@._V1_.jpg",
+      "id": 16
+    },
+    {
+      "title": "Spider-Man: Far from Home",
+      "genre": "Action, Adventure, Comedy",
+      "year": "2019",
+      "description": "Following the events of Avengers: Endgame (2019), Spider-Man must step up to take on new threats in a world that has changed forever.",
+      "poster": "http://localhost:5000/images/1685270171196_MV5BMDgxM2YwYzItYmNjMi00ZDFiLTlmN2ItNDZmMTEyMGM0YmM2XkEyXkFqcGdeQXVyMTA4NjE0NjEy._V1_.jpg",
+      "id": 17
+    },
+    {
+      "title": "Spider-Man: No Way Home",
+      "genre": "Action, Adventure, Fantasy",
+      "year": "2021",
+      "description": "With Spider-Man's identity now revealed, Peter asks Doctor Strange for help. When a spell goes wrong, dangerous foes from other worlds start to appear, forcing Peter to discover what it truly means to be Spider-Man.",
+      "poster": "http://localhost:5000/images/1685270246717_MV5BZWMyYzFjYTYtNTRjYi00OGExLWE2YzgtOGRmYjAxZTU3NzBiXkEyXkFqcGdeQXVyMzQ0MzA0NTM@._V1_.jpg",
+      "id": 18
+    },
+    {
+      "title": "The Avengers",
+      "genre": "Action, Sci-Fi",
+      "year": "2012",
+      "description": "Earth's mightiest heroes must come together and learn to fight as a team if they are going to stop the mischievous Loki and his alien army from enslaving humanity.",
+      "poster": "http://localhost:5000/images/1685270341715_MV5BNDYxNjQyMjAtNTdiOS00NGYwLWFmNTAtNThmYjU5ZGI2YTI1XkEyXkFqcGdeQXVyMTMxODk2OTU@._V1_.jpg",
+      "id": 19
+    },
+    {
+      "title": "Thor",
+      "genre": "Action, Fantasy",
+      "year": "2011",
+      "description": "The powerful but arrogant god Thor is cast out of Asgard to live amongst humans in Midgard (Earth), where he soon becomes one of their finest defenders.",
+      "poster": "http://localhost:5000/images/1685270737574_MV5BOGE4NzU1YTAtNzA3Mi00ZTA2LTg2YmYtMDJmMThiMjlkYjg2XkEyXkFqcGdeQXVyNTgzMDMzMTg@._V1_.jpg",
+      "id": 20
+    },
+    {
+      "title": "Thor: Love and Thunder",
+      "genre": "Action, Adventure, Comedy",
+      "year": "2022",
+      "description": "Thor enlists the help of Valkyrie, Korg and ex-girlfriend Jane Foster to fight Gorr the God Butcher, who intends to make the gods extinct.",
+      "poster": "http://localhost:5000/images/1685270805133_MV5BMGI1MjU4OTktYWFlYy00NGNlLThmMDMtNTdlYTQ1YzgxOWUyXkEyXkFqcGdeQXVyMTQyMTMwOTk0._V1_.jpg",
+      "id": 21
+    },
+    {
+      "title": "Thor: Ragnarok",
+      "genre": "Action, Adventure, Comedy",
+      "year": "2017",
+      "description": "Imprisoned on the planet Sakaar, Thor must race against time to return to Asgard and stop Ragnarök, the destruction of his world, at the hands of the powerful and ruthless villain Hela.",
+      "poster": "http://localhost:5000/images/1685270898249_MV5BMjMyNDkzMzI1OF5BMl5BanBnXkFtZTgwODcxODg5MjI@._V1_.jpg",
+      "id": 22
+    },
+    {
+      "title": "Thor: The Dark World",
+      "genre": "Action, Adventure, Fantasy",
+      "year": "2013",
+      "description": "When the Dark Elves attempt to plunge the universe into darkness, Thor must embark on a perilous and personal journey that will reunite him with doctor Jane Foster.",
+      "poster": "http://localhost:5000/images/1685270963965_MV5BMTQyNzAwOTUxOF5BMl5BanBnXkFtZTcwMTE0OTc5OQ@@._V1_.jpg",
+      "id": 23
     }
   ],
   "users": [
