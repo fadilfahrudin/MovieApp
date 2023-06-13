@@ -5,14 +5,11 @@ import { Footer, Header } from "../component";
 
 const AppRoutes = () => {
 	return (
-		<div className='MainApp'>
+		<div>
 			<Header />
-			<div className='wrapper-app'>
-				<Routes>
-					<Route path='/' element={<Home />} />
-				</Routes>
-			</div>
-			<Footer />
+			<Routes>
+				<Route path='/' element={<Home />} />
+			</Routes>
 		</div>
 	);
 };

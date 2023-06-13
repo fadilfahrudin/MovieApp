@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import "./edit.css";
 import { useNavigate } from "react-router";
 import { useParams } from "react-router-dom";
 import Axios from "axios";
@@ -14,6 +13,8 @@ const Edit = () => {
 	const [year, setYear] = useState("");
 	const [description, setDesctiption] = useState("");
 	const [posterSaved, setPosterSaved] = useState("");
+	const [trailer, setTrailer] = useState("");
+	const [production, setProduction] = useState("");
 
 	const onPosterChange = (e) => {
 		if (e.target.files && e.target.files[0]) {
@@ -34,13 +35,15 @@ const Edit = () => {
 			setPoster(response.data.poster);
 			setYear(response.data.year);
 			setDesctiption(response.data.description);
+			setProduction(response.data.production);
+			setTrailer(response.data.trailer);
 		});
 	};
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		// cek user ganti photo atau tdk
-		let getPoster = e.target[3].files[0];
+		let getPoster = e.target[4].files[0];
 
 		// console.log(getPoster);
 
@@ -50,6 +53,8 @@ const Edit = () => {
 		formData.append("genre", genre);
 		formData.append("year", year);
 		formData.append("description", description);
+		formData.append("trailer", trailer);
+		formData.append("production", production);
 
 		if (!getPoster) {
 			formData.append("poster", poster);
@@ -68,7 +73,7 @@ const Edit = () => {
 	};
 
 	return (
-		<div className='container'>
+		<div style={{ paddingTop: "100px" }}>
 			<div className='row bg-light p-3 rounded w-75 mx-auto mt-5'>
 				<div className='row d-flex align-items-center'>
 					<button
@@ -85,7 +90,7 @@ const Edit = () => {
 							<div className='form-floating mb-3'>
 								<input
 									type='text'
-									className='form-control'
+									className='form-control bg-light'
 									id='title'
 									value={title}
 									onChange={(e) => setTitle(e.target.value)}
@@ -95,10 +100,24 @@ const Edit = () => {
 							</div>
 							<div className='row'>
 								<div className='col'>
+									<div className='form-floating mb-3 col'>
+										<input
+											required
+											type='text'
+											className='form-control bg-light'
+											id='production'
+											placeholder='Example: 2019'
+											value={production}
+											onChange={(e) => setProduction(e.target.value)}
+										/>
+										<label htmlFor='floatingInput'>Production</label>
+									</div>
+								</div>
+								<div className='col'>
 									<div className='form-floating mb-3'>
 										<input
 											type='text'
-											className='form-control'
+											className='form-control bg-light'
 											id='genre'
 											placeholder='Example: Action, Hero dll'
 											value={genre}
@@ -111,7 +130,7 @@ const Edit = () => {
 									<div className='form-floating mb-3 col'>
 										<input
 											type='number'
-											className='form-control'
+											className='form-control bg-light'
 											id='year'
 											placeholder='Example: 2019'
 											value={year}
@@ -121,18 +140,35 @@ const Edit = () => {
 									</div>
 								</div>
 							</div>
-							<div className='mb-3'>
-								<input
-									className='form-control'
-									type='file'
-									id='formFile'
-									style={{ height: "35px" }}
-									onChange={onPosterChange}
-								/>
+							<div className='row'>
+								<div className='col'>
+									<div className='mb-3'>
+										<input
+											className='form-control bg-light'
+											type='file'
+											id='formFile'
+											style={{ height: "35px" }}
+											onChange={onPosterChange}
+										/>
+									</div>
+								</div>
+								<div className='col'>
+									<div className='mb-3 '>
+										<input
+											required
+											placeholder='Trailer Url'
+											type='text'
+											className='form-control bg-light'
+											id='trailer'
+											value={trailer}
+											onChange={(e) => setTrailer(e.target.value)}
+										/>
+									</div>
+								</div>
 							</div>
 							<div className='form-floating mb-3'>
 								<textarea
-									className='form-control'
+									className='form-control bg-light'
 									placeholder='Description here'
 									id='description'
 									value={description}
@@ -141,7 +177,7 @@ const Edit = () => {
 							</div>
 						</div>
 						<div className='col'>
-							<div className='mx-auto d-flex justify-content-center'>
+							<div className='mx-auto d-flex justify-content-center '>
 								<img src={poster} alt='poster' width={200} height={250} />
 							</div>
 							<button type='submit' className='btn btn-primary w-100 mt-2 '>

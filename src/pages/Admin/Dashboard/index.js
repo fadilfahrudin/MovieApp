@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { getData } from "../../../utils/storage";
 import Axios from "axios";
 import ReactPaginate from "react-paginate";
+import "./dashboard.css";
 
 const Dashboard = () => {
 	const navigate = useNavigate();
@@ -21,12 +22,12 @@ const Dashboard = () => {
 	const getMovies = async () => {
 		try {
 			const response = await Axios.get(
-				`http://localhost:5000/api/movies?title_like=${keyWord}&_page=${page}&_limit=${limit}&_sort=year&_order=desc`
+				`http://localhost:5000/api/movies?q=${keyWord}&_page=${page}&_limit=${limit}&_sort=year&_order=desc`
 			);
 			setMovies(response.data);
 			setRows(response.headers["x-total-count"]);
 			setPages(Math.ceil(response.headers["x-total-count"] / limit));
-			console.log(response.data);
+			// console.log(response.data);
 		} catch (error) {
 			console.log(error);
 		}
@@ -61,30 +62,32 @@ const Dashboard = () => {
 	};
 
 	return (
-		<div className='container'>
+		<div className='dashboard-container'>
 			<h1 className='title'>Dashboard</h1>
 			<div className='col'>
-				<div className='row'>
-					<div className='col'>
+				<div className=''>
+					<div className='tambah-and-search'>
 						<button
-							className='btn btn-primary mx-3'
+							className='btn btn-primary '
 							type='button'
 							onClick={() => navigate("/admin/tambah")}>
 							+ Add Movie
 						</button>
-					</div>
-					<div className='input-group mb-3 col'>
-						<input
-							type='text'
-							className='form-control'
-							placeholder='Find movie title here...'
-							style={{ height: "40px" }}
-							value={query}
-							onChange={(e) => setQuery(e.target.value)}
-						/>
-						<button className='btn btn-primary' type='button' onClick={handleSearch}>
-							Search
-						</button>
+						<div className='search-admin'>
+							<input
+								type='search'
+								className=''
+								placeholder='Find movie title here...'
+								value={query}
+								onChange={(e) => setQuery(e.target.value)}
+							/>
+							<button
+								className='btn-search-admin'
+								type='button'
+								onClick={handleSearch}>
+								Search
+							</button>
+						</div>
 					</div>
 
 					<table className='table table-striped table-bordered'>
@@ -92,6 +95,7 @@ const Dashboard = () => {
 							<tr>
 								<th scope='col'>ID</th>
 								<th scope='col'>Title</th>
+								<th scope='col'>Production</th>
 								<th scope='col'>Genre</th>
 								<th scope='col'>Year</th>
 								<th scope='col'>Description</th>
@@ -103,6 +107,7 @@ const Dashboard = () => {
 								<tr key={movie.id}>
 									<td>{movie.id}</td>
 									<td>{movie.title}</td>
+									<td>{movie.production}</td>
 									<td>{movie.genre}</td>
 									<td>{movie.year}</td>
 									<td className='text-truncate' style={{ maxWidth: "200px" }}>
@@ -127,17 +132,17 @@ const Dashboard = () => {
 					<p>
 						Rows: {rows} Page: {rows ? page : 0} of Total Page : {pages}
 					</p>
-					<nav key={rows} aria-label='pagination'>
+					<nav className='' key={rows} aria-label='pagination'>
 						<ReactPaginate
 							previousLabel={"< prev"}
 							nextLabel={"next >"}
 							pageCount={Math.min(10, pages)}
 							onPageChange={pageChange}
-							containerClassName={"pagination justify-content-center"}
-							pageLinkClassName={"page-link"}
-							pageClassName={"page-item"}
-							previousLinkClassName={"page-link"}
-							nextLinkClassName={"page-link"}
+							containerClassName={"page-paginate-admin"}
+							pageLinkClassName={"paginate-link"}
+							pageClassName={"paginate-item"}
+							previousLinkClassName={"paginate-link"}
+							nextLinkClassName={"paginate-link"}
 							activeLinkClassName={"active"}
 							disabledLinkClassName={"disabled"}
 						/>

@@ -1,22 +1,20 @@
 import React from "react";
 import "./home.css";
-import { Card, Carousel } from "../../component";
+import { Card, Footer } from "../../component";
+import HeadlineMovie from "../../component/HeadlineMovie";
 
 const Home = () => {
 	return (
-		<main>
-			{/* <Carousel /> */}
-			<div className='ratio ratio-16x9'>
-				<iframe
-					width='560'
-					height='315'
-					src='https://www.youtube.com/embed/iuk77TjvfmE?controls=0&autoplay=1&mute=1'
-					title='YouTube video player'
-					frameBorder='0'
-					allow='accelerometer; autoplay; clipboard-write; '
-					allowFullScreen></iframe>
+		<main className='main-wrapper'>
+			<HeadlineMovie />
+			<div className='main-content'>
+				<div className='row'>
+					<Card />
+				</div>
+				<div className='row'>
+					<Footer />
+				</div>
 			</div>
-			<Card />
 		</main>
 	);
 };

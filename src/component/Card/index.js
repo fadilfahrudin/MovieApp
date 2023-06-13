@@ -29,7 +29,7 @@ const Card = ({ genre, year }) => {
 
 	return (
 		<div className='card-container'>
-			<h1>Genre Movie</h1>
+			<p>Genre Movie</p>
 			<div className='slider'>{moviesRender}</div>
 		</div>
 	);

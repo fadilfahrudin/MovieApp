@@ -2,6 +2,8 @@
   "movies": [
     {
       "title": "The Marvels",
+      "production": "Marvel Studios",
+      "trailer": "iuk77TjvfmE",
       "genre": "Action",
       "year": "2023",
       "description": "Carol Danvers gets her powers entangled with those of Kamala Khan and Monica Rambeau, forcing them to work together to save the universe.",
@@ -106,6 +108,8 @@
     },
     {
       "title": "Doctor Strange in the Multiverse of Madness",
+      "production": "Marvel Studios",
+      "trailer": "aWzlQ2N6qqg",
       "genre": "Action, Adventure, Fantasy",
       "year": "2022",
       "description": "Doctor Strange teams up with a mysterious teenage girl from his dreams who can travel across multiverses, to battle multiple threats, including other-universe versions of himself, which threaten to wipe out millions across the multiverse. They seek help from Wanda the Scarlet Witch, Wong and others.",
@@ -154,6 +158,8 @@
     },
     {
       "title": "Thor: Love and Thunder",
+      "production": "Marvel Studios",
+      "trailer": "Go8nTmfrQd8",
       "genre": "Action, Adventure, Comedy",
       "year": "2022",
       "description": "Thor enlists the help of Valkyrie, Korg and ex-girlfriend Jane Foster to fight Gorr the God Butcher, who intends to make the gods extinct.",
@@ -175,6 +181,14 @@
       "description": "When the Dark Elves attempt to plunge the universe into darkness, Thor must embark on a perilous and personal journey that will reunite him with doctor Jane Foster.",
       "poster": "http://localhost:5000/images/1685270963965_MV5BMTQyNzAwOTUxOF5BMl5BanBnXkFtZTcwMTE0OTc5OQ@@._V1_.jpg",
       "id": 23
+    },
+    {
+      "title": "Testing 2",
+      "genre": "Action",
+      "year": "2019",
+      "description": "aaaaaaa",
+      "poster": "http://localhost:5000/images/1686435062494_pexels-aleksandar-pasaric-4512439.jpg",
+      "id": 24
     }
   ],
   "users": [

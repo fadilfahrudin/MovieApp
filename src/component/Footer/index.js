@@ -4,7 +4,7 @@ import { IcReact } from "../../assets/img";
 
 const Footer = () => {
 	return (
-		<div className='footer-container'>
+		<div className='container-fluid mx-3'>
 			<div className='firstLine'>
 				<div className='about'>
 					<h5>About</h5>

@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import "./navadmin.css";
 import { DummyLogo, IcSearch, IcUser } from "../../assets/icon";
 import {
-	CButton,
 	CDropdown,
 	CDropdownItem,
 	CDropdownMenu,
@@ -36,22 +35,24 @@ function NavAdmin() {
 		});
 	};
 	return (
-		<nav className='container'>
-			<ul>
-				<li>
-					<a href='/'>
-						<img src={DummyLogo} alt='FF Movie' width={50} />
-					</a>
-				</li>
-				{menus.map((menu) => (
-					<li key={menu.name}>
-						<a href={menu.link}>{menu.name}</a>
+		<nav className='wrapper-nav-admin'>
+			<ul className='nav-admin'>
+				<div className='left'>
+					<li className='nav-admin-li'>
+						<a href='/'>
+							<img src={DummyLogo} alt='FF Movie' width={50} />
+						</a>
 					</li>
-				))}
-				<CButton color='light' onClick={handleGoWebBtn}>
-					Go To Web App
-				</CButton>
-				<li className='right'>
+					{menus.map((menu) => (
+						<li key={menu.name} className='nav-admin-li'>
+							<a href={menu.link}>{menu.name}</a>
+						</li>
+					))}
+					<button className='btn-goto-web' onClick={handleGoWebBtn}>
+						Go To Web App
+					</button>
+				</div>
+				<li>
 					<CDropdown>
 						<CDropdownToggle style={vars}>
 							<img src={IcUser} alt='username' width={40} />

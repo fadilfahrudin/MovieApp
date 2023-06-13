@@ -14,6 +14,8 @@ const Tambah = () => {
 	const [posterSaved, setPosterSaved] = useState("");
 	const [year, setYear] = useState("");
 	const [description, setDesctiption] = useState("");
+	const [trailer, setTrailer] = useState("");
+	const [production, setProduction] = useState("");
 
 	const onPosterChange = (e) => {
 		if (e.target.files && e.target.files[0]) {
@@ -32,11 +34,13 @@ const Tambah = () => {
 		formData.append("year", year);
 		formData.append("description", description);
 		formData.append("poster", posterSaved);
+		formData.append("trailer", trailer);
+		formData.append("production", production);
 
 		if (formData) {
 			Axios.post("http://localhost:5000/api/movie/create", formData)
 				.then((res) => {
-					// console.log(res);
+					console.log(res);
 					navigate("/admin");
 				})
 				.catch((err) => {
@@ -48,8 +52,8 @@ const Tambah = () => {
 	};
 
 	return (
-		<div className='container'>
-			<div className='row bg-light p-3 rounded w-75 mx-auto mt-5'>
+		<div style={{ paddingTop: "100px" }}>
+			<div className='row bg-light p-3 rounded w-75 mx-auto'>
 				<div className='row d-flex align-items-center'>
 					<button
 						type='link'
@@ -66,7 +70,7 @@ const Tambah = () => {
 								<input
 									required
 									type='text'
-									className='form-control'
+									className='form-control bg-light'
 									id='title'
 									value={title}
 									onChange={(e) => setTitle(e.target.value)}
@@ -76,11 +80,25 @@ const Tambah = () => {
 							</div>
 							<div className='row'>
 								<div className='col'>
+									<div className='form-floating mb-3 col'>
+										<input
+											required
+											type='text'
+											className='form-control bg-light'
+											id='production'
+											placeholder='Example: 2019'
+											value={production}
+											onChange={(e) => setProduction(e.target.value)}
+										/>
+										<label htmlFor='floatingInput'>Production</label>
+									</div>
+								</div>
+								<div className='col'>
 									<div className='form-floating mb-3'>
 										<input
 											required
 											type='text'
-											className='form-control'
+											className='form-control bg-light'
 											id='genre'
 											placeholder='Example: Action, Hero dll'
 											value={genre}
@@ -94,7 +112,7 @@ const Tambah = () => {
 										<input
 											required
 											type='number'
-											className='form-control'
+											className='form-control bg-light'
 											id='year'
 											placeholder='Example: 2019'
 											value={year}
@@ -104,20 +122,37 @@ const Tambah = () => {
 									</div>
 								</div>
 							</div>
-							<div className='mb-3'>
-								<input
-									required
-									className='form-control'
-									type='file'
-									id='formFile'
-									style={{ height: "35px" }}
-									onChange={onPosterChange}
-								/>
+							<div className='row'>
+								<div className='col'>
+									<div className='mb-3'>
+										<input
+											required
+											className='form-control bg-light'
+											type='file'
+											id='formFile'
+											style={{ height: "35px" }}
+											onChange={onPosterChange}
+										/>
+									</div>
+								</div>
+								<div className='col'>
+									<div className='mb-3 '>
+										<input
+											required
+											placeholder='Trailer Url'
+											type='text'
+											className='form-control bg-light'
+											id='trailer'
+											value={trailer}
+											onChange={(e) => setTrailer(e.target.value)}
+										/>
+									</div>
+								</div>
 							</div>
 							<div className='form-floating mb-3'>
 								<textarea
 									style={{ minHeight: "125px" }}
-									className='form-control'
+									className='form-control bg-light'
 									placeholder='Description here'
 									id='description'
 									value={description}

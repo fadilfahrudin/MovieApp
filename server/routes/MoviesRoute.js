@@ -26,12 +26,14 @@ const upload = multer({ storage });
 Router.post("/create", upload.single("poster"), async (req, res) => {
 	let pathPoster =
 		req.protocol + "://" + req.get("host") + "/images/" + req.file.filename;
-	const { title, genre, description, year } = req.body;
+	const { title, genre, description, year, production, trailer } = req.body;
 
 	try {
 		const response = await (
 			await axios.post(`http://localhost:5000/api/movies`, {
 				title: title,
+				production: production,
+				trailer: trailer,
 				genre: genre,
 				year: year,
 				description: description,
@@ -49,7 +51,8 @@ Router.post("/create", upload.single("poster"), async (req, res) => {
 // update  movie
 Router.put("/update", upload.single("poster"), async (req, res) => {
 	let pathPoster = "";
-	const { id, title, description, genre, year, poster } = req.body;
+	const { id, title, description, genre, year, poster, production, trailer } =
+		req.body;
 
 	if (req.file === undefined) {
 		pathPoster = poster;
@@ -62,6 +65,8 @@ Router.put("/update", upload.single("poster"), async (req, res) => {
 		const response = await (
 			await axios.put(`http://localhost:5000/api/movies/${id}`, {
 				title: title,
+				production: production,
+				trailer: trailer,
 				genre: genre,
 				year: year,
 				description: description,

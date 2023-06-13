@@ -1,19 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import {
-	CButton,
-	CDropdownDivider,
-	CForm,
-	CFormInput,
-	CFormLabel,
-} from "@coreui/react";
-import "./login.css";
-import Axios from "axios";
-import { getData, storeData } from "../../utils/storage";
-
-const inputStyle = {
-	height: "40px",
-};
+import { getData } from "../../utils/storage";
+import { useDispatch } from "react-redux";
+import { SignInAction } from "../../redux/action/user";
 
 const Login = () => {
 	const navigate = useNavigate();
@@ -28,67 +17,47 @@ const Login = () => {
 		});
 	});
 
+	const dispatch = useDispatch();
+
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		const getUserSubmit = { email, password };
-
-		Axios.get("http://localhost:5000/api/users", getUserSubmit)
-			.then((result) => {
-				console.log(result);
-				const database = result.data;
-				const userData = database.find(
-					(user) => user.email === getUserSubmit.email
-				);
-
-				if (userData) {
-					if (userData.password !== getUserSubmit.password) {
-						alert("Password Salah");
-					} else {
-						storeData("user", userData);
-						navigate("/admin");
-					}
-				} else {
-					alert("email salah");
-				}
-			})
-			.catch((err) => {
-				console.log("message", err);
-			});
+		const dataUser = { email, password };
+		dispatch(SignInAction(dataUser, navigate));
 	};
 
 	return (
-		<div className='container-login'>
-			<div className='wrapper-login'>
-				<CForm className='px-4 py-4' onSubmit={handleSubmit}>
-					<div className='mb-3'>
-						<CFormLabel htmlFor='exampleDropdownFormEmail1'>Email address</CFormLabel>
-						<CFormInput
-							name='email'
-							type='email'
-							id='exampleDropdownFormEmail1'
-							placeholder='email@example.com'
-							style={inputStyle}
-							value={email}
-							onChange={(e) => setEmail(e.target.value)}
-							required
-						/>
-					</div>
-					<div className='mb-3'>
-						<CFormLabel htmlFor='exampleDropdownFormPassword1'>Password</CFormLabel>
-						<CFormInput
-							name='password'
-							type='password'
-							id='exampleDropdownFormPassword1'
-							placeholder='Password'
-							style={inputStyle}
-							value={password}
-							onChange={(e) => setPassword(e.target.value)}
-							required
-						/>
-					</div>
-					<CButton type='submit'>Sign in</CButton>
-				</CForm>
-				<CDropdownDivider />
+		<div className='container pt-5'>
+			<div className='row bg-light p-3 shadow-lg rounded w-50 mx-auto mt-5'>
+				<div className='col'>
+					<form className='text-dark  rounded' onSubmit={handleSubmit}>
+						<div className='form-floating mb-3'>
+							<input
+								required
+								type='text'
+								className='form-control bg-light'
+								id='email'
+								value={email}
+								onChange={(e) => setEmail(e.target.value)}
+							/>
+							<label htmlFor='floatingInput'>Email</label>
+						</div>
+
+						<div className='form-floating mb-3'>
+							<input
+								required
+								type='password'
+								className='form-control bg-light'
+								id='password'
+								value={password}
+								onChange={(e) => setPassword(e.target.value)}
+							/>
+							<label htmlFor='exampleDropdownFormPassword1'>Password</label>
+						</div>
+						<button className='btn btn-primary col w-100' type='submit'>
+							Sign in
+						</button>
+					</form>
+				</div>
 			</div>
 		</div>
 	);
